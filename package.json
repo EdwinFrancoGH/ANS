@@ -2,21 +2,19 @@
   "name": "bloomboard-app",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "start": "node server.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
-    "serve-build": "npx serve -s build"
+    "preview": "npx serve -s build --single",
+    "test": "react-scripts test --env=jsdom"
   },
   "dependencies": {
-    "express": "^4.18.2",
+    "framer-motion": "^10.12.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "framer-motion": "^10.12.16"
-  },
-  "devDependencies": {
     "react-scripts": "5.0.1"
-  },
-  "engines": {
-    "node": "18.x"
   }
 }

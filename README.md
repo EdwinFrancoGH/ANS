@@ -1,21 +1,31 @@
-# BloomBoard - Azure-ready Project
+# BloomBoard - Ready project
 
-Esta versión está preparada para desplegar directamente en **Azure App Service (Linux/Windows)** y **Azure Static Web Apps**.
+Este repositorio contiene la versión lista para desplegar en **Azure App Service** (nombre: `bloomboard`) o para probar localmente.
 
-## Características incluidas
-- `server.js` simple con Express para servir la carpeta `build/` (útil para App Service).
-- `web.config` para corregir rutas en App Service Windows (IIS).
-- `.deployment` que indica a Azure cómo construir y ejecutar (opcional).
-- `package.json` con `start` que ejecuta `node server.js`.
-- React app mínima con componente `BloomBoard`.
+## Pasos rápidos
 
-## Cómo desplegar (breve)
-1. Subir a GitHub / Azure Repos.
-2. En Azure App Service -> Deployment Center -> conectar al repo.
-   - Runtime: Node 18 (o compatible).
-   - Azure ejecutará `npm install` y luego `npm start` (por `.deployment` o por detection).
-3. Alternativa: Azure Static Web Apps: configurar build output `build`.
+1. Instala dependencias:
+```bash
+npm ci
+```
 
-## Notas
-- Puedes ajustar `engines.node` en `package.json` si necesitas otra versión de Node.
-- Si quieres SSL custom, dominios, o variables de entorno, lo configuras en la App Service.
+2. Prueba en desarrollo:
+```bash
+npm start
+```
+
+3. Build producción:
+```bash
+npm run build
+npx serve -s build --single
+```
+
+## Despliegue a Azure App Service (resumen)
+- En Azure Portal, App Service: **bloomboard** (Linux, Node 22).
+- Añade secret en GitHub: `AZURE_WEBAPP_PUBLISH_PROFILE` con el contenido del publish profile XML.
+- Startup Command recomendado en App Service → Configuration → General settings:
+```
+npx pm2 serve /home/site/wwwroot --spa --no-daemon
+```
+
+El workflow de GitHub Actions ya está incluido en `.github/workflows/azure-webapp.yml`.
